@@ -1,4 +1,4 @@
-package com.BusWorkshop.controller.repository;
+package com.BusWorkshop.repository;
 import com.BusWorkshop.model.Bus;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

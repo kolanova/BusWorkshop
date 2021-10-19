@@ -1,5 +1,5 @@
 package com.BusWorkshop.services;
-import com.BusWorkshop.controller.repository.MaintenanceTeamRepository;
+import com.BusWorkshop.repository.MaintenanceTeamRepository;
 import org.springframework.stereotype.Service;
 
 @Service
