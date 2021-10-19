@@ -20,5 +20,4 @@ public class MaintenanceTeam {
     @Indexed(unique = false)
     private String name;
     private boolean availability;
-    private BusType busType;
 }
