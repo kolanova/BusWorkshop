@@ -64,4 +64,11 @@ public class BusService {
         busToBeUpdated.setMaintenanceDay(maintenanceDay);
         return busRepository.save(busToBeUpdated);
     }
+
+
+    public Optional<Bus> findByName(String name) {
+        return busRepository.findBusByName(name);
+    }
+
+
 }

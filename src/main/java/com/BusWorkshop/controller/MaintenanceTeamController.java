@@ -28,6 +28,10 @@ public class MaintenanceTeamController {
     public Optional<MaintenanceTeam> getMaintenanceTeamId(String id) {
         return maintenanceTeamService.findById(id);
     }
+    // Get all buses on database by Name
+    @GetMapping("/maintenanceteams/{name}")
+    public Optional<MaintenanceTeam> getMaintenanceTeamName(String name) {
+        return maintenanceTeamService.findByName(name);}
 
     @PutMapping(value ="maintenanceTeam/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity updateMaintenanceTeamById(@PathVariable(value = "id") String maintenanceTeamId, @RequestBody MaintenanceRQ maintenanceRQ){

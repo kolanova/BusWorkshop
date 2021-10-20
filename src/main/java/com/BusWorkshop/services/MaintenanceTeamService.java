@@ -48,4 +48,7 @@ public class MaintenanceTeamService {
         maintenanceTeamToBeUpdated.setName(name);
         return maintenanceTeamRepository.save(maintenanceTeamToBeUpdated);
     }
+
+    public Optional<MaintenanceTeam> findByName(String name) {return  maintenanceTeamRepository.findMaintenanceTeamByName(name);}
+
 }

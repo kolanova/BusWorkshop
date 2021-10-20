@@ -29,6 +29,10 @@ public class BusController {
     @GetMapping("/buses/{id}")
     public Optional<Bus> getBusesId(String id) {
         return busService.findById(id);}
+    // Get all buses on database by Name
+    @GetMapping("/buses/{name}")
+    public Optional<Bus> getBusesName(String name) {
+        return busService.findByName(name);}
 
     //Update bus byId
     @PutMapping(value ="/bus/{id}", consumes = "application/json", produces = "application/json")
