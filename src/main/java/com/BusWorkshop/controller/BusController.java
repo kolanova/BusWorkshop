@@ -14,12 +14,17 @@ import java.util.Optional;
 @RestController
 public class BusController {
 
-    BusService busService;
+    private final BusService busService;
 
     public BusController(BusService busService) {
         this.busService = busService;
     }
 
+    @PostMapping(value ="/bus", consumes = "application/json", produces = "application/json")
+    public ResponseEntity createBus(@RequestBody BusRQ busRQ){
+        String busName = busService.create(busRQ).getName();
+        return ResponseEntity.created(URI.create("/bus" + busName)).body("Bus was added to our DB");
+    }
     // Get all buses on database
     @GetMapping("/buses")
     public List<Bus> getBuses() {
@@ -47,4 +52,12 @@ public class BusController {
         busService.updateBusByName(busName, busRQ);
         return ResponseEntity.created(URI.create("/bus/" + busName)).body("Bus Updated");
     }
+
+    //Delete bus by ID
+    @DeleteMapping(path = "delete-bus/{id}")
+    public ResponseEntity deleteBus(@PathVariable(value = "id") String busId) {
+        busService.deleteById(busId);
+        return ResponseEntity.created(URI.create("/bus")).body("Bus was created");
+    }
+
 }

@@ -13,12 +13,17 @@ import java.util.Optional;
 @RestController
 public class MaintenanceTeamController {
 
-    MaintenanceTeamService maintenanceTeamService;
+    private final MaintenanceTeamService maintenanceTeamService;
 
     public MaintenanceTeamController(MaintenanceTeamService maintenanceTeamService) {
         this.maintenanceTeamService = maintenanceTeamService;
     }
 
+    @PostMapping(value ="/maintenance-teams", consumes = "application/json", produces = "application/json")
+    public ResponseEntity createMaintenanceTeam (@RequestBody MaintenanceRQ maintenanceRQ){
+        String maintenanceTeamsName = maintenanceTeamService.create(maintenanceRQ).getName();
+        return ResponseEntity.created(URI.create("/maintenance-teams" + maintenanceTeamsName)).body("Team was added to our DB");
+    }
     // Get all maintenance teams on database
     @GetMapping("/maintenanceteams")
     public List<MaintenanceTeam> getMaintenanceTeam() {
@@ -43,5 +48,11 @@ public class MaintenanceTeamController {
     public ResponseEntity updateMaintenanceTeamByName(@RequestParam String maintenanceTeamName, @RequestBody MaintenanceRQ maintenanceRQ){
         maintenanceTeamService.updateMaintenanceTeamByName(maintenanceTeamName, maintenanceRQ);
         return ResponseEntity.created(URI.create("/maintenanceTeam/" + maintenanceTeamName)).body("Maintenance Team Updated");
+    }
+
+    @DeleteMapping(path = "delete-maintenance-teams/{id}")
+    public ResponseEntity deleteMaintenanceTeams(@PathVariable(value = "id") String maintenanceteamId) {
+        maintenanceTeamService.deleteById(maintenanceteamId);
+        return ResponseEntity.created(URI.create("/maintenanceteams")).body("Team was added to our DB");
     }
 }

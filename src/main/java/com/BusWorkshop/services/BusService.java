@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class BusService {
 
-    BusRepository busRepository;
+    private final BusRepository busRepository;
 
     public BusService(BusRepository busRepository) {
         this.busRepository = busRepository;
@@ -25,6 +25,19 @@ public class BusService {
     }
     public Optional<Bus> findById(String id) {
         return busRepository.findById(id);
+    }
+
+    public Bus create(BusRQ busRQ) {
+        BusType busType = busRQ.getBusType();
+        String busName = busRQ.getName();
+        LocalDateTime maintenanceDay= busRQ.getMaintenanceDay();
+        Bus newBus = Bus
+                .builder()
+                .name(busName)
+                .busType(busType)
+                .maintenanceDay(maintenanceDay)
+                .build();
+        return busRepository.save(newBus);
     }
 
     public Bus updateBusById(String busId, BusRQ busRQ) {
@@ -70,5 +83,8 @@ public class BusService {
         return busRepository.findBusByName(name);
     }
 
+    public void deleteById(String id) {
+        busRepository.deleteById(id);
+    } // delete
 
 }

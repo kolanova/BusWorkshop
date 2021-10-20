@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class MaintenanceTeamService {
 
-    MaintenanceTeamRepository maintenanceTeamRepository;
+    private final MaintenanceTeamRepository maintenanceTeamRepository;
 
     public MaintenanceTeamService(MaintenanceTeamRepository maintenanceTeamRepository) {
         this.maintenanceTeamRepository = maintenanceTeamRepository;
@@ -23,6 +23,16 @@ public class MaintenanceTeamService {
     }
     public Optional<MaintenanceTeam>  findById(String id) {
         return maintenanceTeamRepository.findById(id);
+    }
+
+    public MaintenanceTeam create(MaintenanceRQ maintenanceRQ) {
+
+        String mainteanseTeamName = maintenanceRQ.getName();
+        MaintenanceTeam newMaintenanceTeam = MaintenanceTeam
+                .builder()
+                .name(mainteanseTeamName)
+                .build();
+        return maintenanceTeamRepository.save(newMaintenanceTeam);
     }
 
     public MaintenanceTeam updateMaintenanceTeamById(String maintenanceTeamId, MaintenanceRQ maintenanceRQ) {
@@ -51,4 +61,7 @@ public class MaintenanceTeamService {
 
     public Optional<MaintenanceTeam> findByName(String name) {return  maintenanceTeamRepository.findMaintenanceTeamByName(name);}
 
+    public void deleteById(String id) {
+        maintenanceTeamRepository.deleteById(id);
+    } // delete
 }
