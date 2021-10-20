@@ -64,11 +64,9 @@ public class BusService {
         int hour = busRQ.getScheduleHour0to23();
         LocalDateTime maintenanceDay = LocalDateTime.of(year, month, day, hour,00,00);
         BusType busType = busRQ.getBusType();
-        //Add exception if bus don't exists
         if(!busRepository.existsById(busId)){
             throw new ResourceNotFound("You need to add an existing Bus");
         }
-        //add exception to check if name already exists
         if(busRepository.findBusByName(name).isPresent()){
             throw new DuplicatedNameBusException("Name already chosen! Try a different one.");
         }

@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 public class MaintenanceRQ {
     private String name;
     private boolean availability;
-
 }
