@@ -33,14 +33,14 @@ public class MaintenanceTeamController {
     public Optional<MaintenanceTeam> getMaintenanceTeamName(String name) {
         return maintenanceTeamService.findByName(name);}
 
-    @PutMapping(value ="maintenanceTeam/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity updateMaintenanceTeamById(@PathVariable(value = "id") String maintenanceTeamId, @RequestBody MaintenanceRQ maintenanceRQ){
+    @PutMapping(value ="/maintenanceTeam/id", consumes = "application/json", produces = "application/json")
+    public ResponseEntity updateMaintenanceTeamById(@RequestParam String maintenanceTeamId, @RequestBody MaintenanceRQ maintenanceRQ){
         maintenanceTeamService.updateMaintenanceTeamById(maintenanceTeamId, maintenanceRQ);
         return ResponseEntity.created(URI.create("/maintenanceTeam/" + maintenanceTeamId)).body("Maintenance Team Updated");
     }
 
-    @PutMapping(value ="maintenanceTeam/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity updateMaintenanceTeamByName(@PathVariable(value = "id") String maintenanceTeamName, @RequestBody MaintenanceRQ maintenanceRQ){
+    @PutMapping(value ="/maintenanceTeam/name", consumes = "application/json", produces = "application/json")
+    public ResponseEntity updateMaintenanceTeamByName(@RequestParam String maintenanceTeamName, @RequestBody MaintenanceRQ maintenanceRQ){
         maintenanceTeamService.updateMaintenanceTeamByName(maintenanceTeamName, maintenanceRQ);
         return ResponseEntity.created(URI.create("/maintenanceTeam/" + maintenanceTeamName)).body("Maintenance Team Updated");
     }

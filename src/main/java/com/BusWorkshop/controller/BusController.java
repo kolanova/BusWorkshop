@@ -35,15 +35,15 @@ public class BusController {
         return busService.findByName(name);}
 
     //Update bus byId
-    @PutMapping(value ="/bus/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity updateBusByID(@PathVariable(value = "id") String busId, @RequestBody BusRQ busRQ){
+    @PutMapping(value ="/bus/id", consumes = "application/json", produces = "application/json")
+    public ResponseEntity updateBusByID(@RequestParam String busId, @RequestBody BusRQ busRQ){
         busService.updateBusById(busId, busRQ);
         return ResponseEntity.created(URI.create("/bus/" + busId)).body("Bus Updated");
     }
 
     //Update bus byName
-    @PutMapping(value ="/bus/{name}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity updateBusByName(@PathVariable(value = "name") String busName, @RequestBody BusRQ busRQ){
+    @PutMapping(value ="/bus/name", consumes = "application/json", produces = "application/json")
+    public ResponseEntity updateBusByName(@RequestParam String busName, @RequestBody BusRQ busRQ){
         busService.updateBusByName(busName, busRQ);
         return ResponseEntity.created(URI.create("/bus/" + busName)).body("Bus Updated");
     }
