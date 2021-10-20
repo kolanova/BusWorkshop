@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -12,6 +11,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class BusRQ {
     private String name;
-    private LocalDateTime maintenanceDay;
     private BusType busType;
+    private int year;
+    private int month;
+    private int day;
+    private int hour;
 }

@@ -1,13 +1,11 @@
 package com.BusWorkshop.controller;
 import com.BusWorkshop.controller.request.BusRQ;
 import com.BusWorkshop.model.Bus;
-import com.BusWorkshop.model.MaintenanceTeam;
 import com.BusWorkshop.services.BusService;
-import com.BusWorkshop.services.MaintenanceTeamService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,24 +18,30 @@ public class BusController {
         this.busService = busService;
     }
 
+
     @PostMapping(value ="/bus", consumes = "application/json", produces = "application/json")
     public ResponseEntity createBus(@RequestBody BusRQ busRQ){
         String busName = busService.create(busRQ).getName();
         return ResponseEntity.created(URI.create("/bus" + busName)).body("Bus was added to our DB");
     }
+
     // Get all buses on database
     @GetMapping("/buses")
     public List<Bus> getBuses() {
-        return busService.findAll();}
+        return busService.findAll();
+    }
 
     // Get all buses on database by ID
     @GetMapping("/buses/{id}")
     public Optional<Bus> getBusesId(String id) {
-        return busService.findById(id);}
+        return busService.findById(id);
+    }
+
     // Get all buses on database by Name
     @GetMapping("/buses/{name}")
     public Optional<Bus> getBusesName(String name) {
-        return busService.findByName(name);}
+        return busService.findByName(name);
+    }
 
     //Update bus byId
     @PutMapping(value ="/bus/id", consumes = "application/json", produces = "application/json")
@@ -53,11 +57,17 @@ public class BusController {
         return ResponseEntity.created(URI.create("/bus/" + busName)).body("Bus Updated");
     }
 
+    @PutMapping(value ="/bus/repair", consumes = "application/json", produces = "application/json")
+    public ResponseEntity upadateRepair(@RequestParam String busName, @RequestParam String maintenanceTeamName, int year, int month, int day, int hour){
+        LocalDateTime newtime = LocalDateTime.of(year, month, day,hour,00,00);
+        busService.updateRepair(busName, maintenanceTeamName, newtime);
+        return ResponseEntity.created(URI.create("/bus/repair" + busName)).body("Repair schedule");
+    }
+
     //Delete bus by ID
-    @DeleteMapping(path = "delete-bus/{id}")
+    @DeleteMapping(path = "/delete-bus/{id}")
     public ResponseEntity deleteBus(@PathVariable(value = "id") String busId) {
         busService.deleteById(busId);
         return ResponseEntity.created(URI.create("/bus")).body("Bus was created");
     }
-
 }
