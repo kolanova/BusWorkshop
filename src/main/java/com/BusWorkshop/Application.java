@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 
 
 @SpringBootApplication
-//@EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
+@EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
 public class Application {
     public static void main(String[] args) {
         //var changeTire = MaintenanceType.ENGINE_REBUILD.getResponse();

@@ -10,9 +10,7 @@ public enum MaintenanceType {
     MaintenanceType(int hour) {
         this.hour = hour;
     }
-
-
-    public int getResponse() {
+        public int getResponse() {
         return hour;
     }
 }

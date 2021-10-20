@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
 
 @Builder
 @ToString
@@ -20,5 +19,4 @@ public class MaintenanceTeam {
     @Indexed(unique = false)
     private String name;
     private boolean availability;
-    private BusType busType;
-}
+    }
