@@ -1,10 +1,12 @@
 package com.BusWorkshop.services;
 import com.BusWorkshop.controller.request.BusRQ;
+import com.BusWorkshop.controller.request.DateTimeRQ;
 import com.BusWorkshop.exceptions.DuplicatedNameBusException;
 import com.BusWorkshop.exceptions.ResourceNotFound;
 import com.BusWorkshop.model.Bus;
 import com.BusWorkshop.model.BusType;
 import com.BusWorkshop.repository.BusRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -68,6 +70,11 @@ public class BusService {
 
     public Optional<Bus> findByName(String name) {
         return busRepository.findBusByName(name);
+    }
+
+    public LocalDateTime createDate(DateTimeRQ date) {
+        LocalDateTime newtime = LocalDateTime.of(date.getYear(),date.getMonth(),date.getDay(),date.getHour(),00,00);
+        return newtime;
     }
 
 
