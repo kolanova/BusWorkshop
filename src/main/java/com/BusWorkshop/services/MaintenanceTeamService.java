@@ -30,10 +30,10 @@ public class MaintenanceTeamService {
     }
 
     public MaintenanceTeam create(MaintenanceRQ maintenanceRQ) {
-        String mainteanseTeamName = maintenanceRQ.getName();
+        String maintenanceTeamName = maintenanceRQ.getName();
         MaintenanceTeam newMaintenanceTeam = MaintenanceTeam
                 .builder()
-                .name(mainteanseTeamName)
+                .name(maintenanceTeamName)
                 .build();
         return maintenanceTeamRepository.save(newMaintenanceTeam);
     }
@@ -70,12 +70,14 @@ public class MaintenanceTeamService {
     }
 
     public void deleteById(String id) {
+        if(!maintenanceTeamRepository.existsById(id)){
+            throw new ResourceNotFound("You need to add an existing Maintenance Team");
+        }
         maintenanceTeamRepository.deleteById(id);
-    } // delete
+    }
 
     public MaintenanceTeam makeMaintenanceTeamSick(String maintenanceTeamName) {
         String name = maintenanceTeamName;
-
         if(!maintenanceTeamRepository.findMaintenanceTeamByName(maintenanceTeamName).isPresent()){
             throw new ResourceNotFound("You need to add an existing Maintenance Team");
         }

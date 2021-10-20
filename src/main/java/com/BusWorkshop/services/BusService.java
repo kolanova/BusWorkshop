@@ -42,10 +42,10 @@ public class BusService {
         if(busRepository.findBusByName(busName).isPresent()){
             throw new DuplicatedNameBusException("Name already chosen! Try a different one.");
         }
-        int year = busRQ.getYear();
-        int month = busRQ.getMonth();
-        int day = busRQ.getDay();
-        int hour = busRQ.getHour();
+        int year = busRQ.getScheduleYear2021to3000();
+        int month = busRQ.getScheduleMonth1to12();
+        int day = busRQ.getScheduleDay1to31();
+        int hour = busRQ.getScheduleHour0to23();
         LocalDateTime maintenanceDay = LocalDateTime.of(year, month, day, hour,00,00);
         Bus newBus = Bus
                 .builder()
@@ -58,10 +58,10 @@ public class BusService {
 
     public Bus updateBusById(String busId, BusRQ busRQ) {
         String name = busRQ.getName();
-        int year = busRQ.getYear();
-        int month = busRQ.getMonth();
-        int day = busRQ.getDay();
-        int hour = busRQ.getHour();
+        int year = busRQ.getScheduleYear2021to3000();
+        int month = busRQ.getScheduleMonth1to12();
+        int day = busRQ.getScheduleDay1to31();
+        int hour = busRQ.getScheduleHour0to23();
         LocalDateTime maintenanceDay = LocalDateTime.of(year, month, day, hour,00,00);
         BusType busType = busRQ.getBusType();
         //Add exception if bus don't exists
@@ -81,10 +81,10 @@ public class BusService {
 
     public Bus updateBusByName(String busName, BusRQ busRQ) {
         String name = busName;
-        int year = busRQ.getYear();
-        int month = busRQ.getMonth();
-        int day = busRQ.getDay();
-        int hour = busRQ.getHour();
+        int year = busRQ.getScheduleYear2021to3000();
+        int month = busRQ.getScheduleMonth1to12();
+        int day = busRQ.getScheduleDay1to31();
+        int hour = busRQ.getScheduleHour0to23();
         LocalDateTime maintenanceDay = LocalDateTime.of(year, month, day, hour,00,00);
         BusType busType = busRQ.getBusType();
         if(!busRepository.findBusByName(name).isPresent()){
@@ -108,8 +108,11 @@ public class BusService {
     }
 
     public void deleteById(String id) {
+        if(!busRepository.existsById(id)){
+            throw new ResourceNotFound("You need to add an existing Bus");
+        }
         busRepository.deleteById(id);
-    } // delete
+    }
 
     public Bus updateRepair(String busName, String maintenanceTeamName, LocalDateTime newtime) {
         if(!maintenanceTeamRepository.findMaintenanceTeamByName(maintenanceTeamName).isPresent()){

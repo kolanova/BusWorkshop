@@ -3,13 +3,17 @@ import com.BusWorkshop.controller.request.BusRQ;
 import com.BusWorkshop.model.Bus;
 import com.BusWorkshop.services.BusService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Validated
 public class BusController {
 
     private final BusService busService;
@@ -58,9 +62,9 @@ public class BusController {
     }
 
     @PutMapping(value ="/bus/repair", consumes = "application/json", produces = "application/json")
-    public ResponseEntity upadateRepair(@RequestParam String busName, @RequestParam String maintenanceTeamName, int year, int month, int day, int hour){
-        LocalDateTime newtime = LocalDateTime.of(year, month, day,hour,00,00);
-        busService.updateRepair(busName, maintenanceTeamName, newtime);
+    public ResponseEntity upadateRepair(@RequestParam String busName, @RequestParam String maintenanceTeamName, @Valid int scheduleYear2021to3000, @Valid int scheduleMonth1to12, @Valid int scheduleDay1to31, @Valid int scheduleHour0to23){
+        LocalDateTime newTime = LocalDateTime.of(scheduleYear2021to3000, scheduleMonth1to12, scheduleDay1to31, scheduleHour0to23,00,00);
+        busService.updateRepair(busName, maintenanceTeamName, newTime);
         return ResponseEntity.created(URI.create("/bus/repair" + busName)).body("Repair schedule");
     }
 
@@ -68,6 +72,6 @@ public class BusController {
     @DeleteMapping(path = "/delete-bus/{id}")
     public ResponseEntity deleteBus(@PathVariable(value = "id") String busId) {
         busService.deleteById(busId);
-        return ResponseEntity.created(URI.create("/bus")).body("Bus was created");
+        return ResponseEntity.created(URI.create("/bus")).body("Bus was deleted");
     }
 }

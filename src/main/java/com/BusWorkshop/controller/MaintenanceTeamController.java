@@ -54,9 +54,9 @@ public class MaintenanceTeamController {
     }
 
     @DeleteMapping(path = "delete-maintenance-teams/{id}")
-    public ResponseEntity deleteMaintenanceTeams(@PathVariable(value = "id") String maintenanceteamId) {
-        maintenanceTeamService.deleteById(maintenanceteamId);
-        return ResponseEntity.created(URI.create("/maintenanceteams")).body("Team was added to our DB");
+    public ResponseEntity deleteMaintenanceTeams(@PathVariable(value = "id") String maintenanceTeamId) {
+        maintenanceTeamService.deleteById(maintenanceTeamId);
+        return ResponseEntity.created(URI.create("/maintenanceTeam/" + maintenanceTeamId)).body("Team was deleted from DB");
     }
 
     @PutMapping(value ="/maintenance-team/sick", consumes = "application/json", produces = "application/json")
